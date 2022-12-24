@@ -19,10 +19,14 @@ export class RedoListComponent {
   ) {
     this.redoList = {};
 
-    this.localforageService.getItem('redoList').then((data: unknown) => {
+    this.localforageService.getItem('redoList').then((data: any) => {
       console.log(data, 'hello from redol list');
-      this.redoList = data;
-      this.currentListService.redoList = this.redoList;
+      if (data.todos) {
+        this.redoList = data;
+        this.currentListService.redoList = this.redoList;
+      } else {
+        this.redoList = this.currentListService.redoList;
+      }
     });
   }
   handleTodoToggle(todo: Todo) {
