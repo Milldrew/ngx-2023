@@ -7,7 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class CreateTodoComponent {
   @Output()
-  createTodo: EventEmitter<unknown> = new EventEmitter();
+  createTodo: EventEmitter<any> = new EventEmitter();
   constructor() {}
 
   handleCreateTodoButton() {

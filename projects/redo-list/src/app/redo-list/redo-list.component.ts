@@ -19,15 +19,19 @@ export class RedoListComponent {
   ) {
     this.redoList = {};
 
-    this.localforageService.getItem('redoList').then((data: any) => {
-      console.log(data, 'hello from redol list');
-      if (data.todos) {
-        this.redoList = data;
-        this.currentListService.redoList = this.redoList;
-      } else {
+    this.localforageService
+      .getItem('redoList')
+      .then((data: any) => {
+        if (data.todos) {
+          this.redoList = data;
+          this.currentListService.redoList = this.redoList;
+        } else {
+          this.redoList = this.currentListService.redoList;
+        }
+      })
+      .catch((_error) => {
         this.redoList = this.currentListService.redoList;
-      }
-    });
+      });
   }
   handleTodoToggle(todo: Todo) {
     todo.isFinished = !todo.isFinished;
@@ -58,5 +62,15 @@ export class RedoListComponent {
     this.currentListService.addTodo(newTodo);
     this.editedTodo = newTodo;
     this.isEditingTodo = true;
+  }
+  ngAfterContentInit() {
+    if (typeof this.redoList !== 'object') {
+      this.redoList = this.currentListService.redoList = {
+        name: 'Redo List',
+        isFinished: false,
+        todos: [],
+        date: new Date().toString(),
+      };
+    }
   }
 }
