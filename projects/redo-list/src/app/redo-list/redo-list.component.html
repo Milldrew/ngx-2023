@@ -12,10 +12,13 @@
       Delete
     </button>
   </ul>
-  <input
-    [(ngModel)]="editorsTodo"
-    (change)="handleEditorChange(todo)"
-    (keydown.enter)="stopEditing()"
-    *ngIf="isEditingTodo"
-  />
+  <ng-container>
+    <input
+      milldrewFocus
+      [(ngModel)]="editorsTodo"
+      (keydown.enter)="stopEditing()"
+      (ngModelChange)="handleEditorChange(todo)"
+      *ngIf="isEditingTodo"
+    />
+  </ng-container>
 </ng-container>
