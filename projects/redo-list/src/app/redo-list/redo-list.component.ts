@@ -12,18 +12,25 @@ import { LocalforageService } from '../core/services/database/localforage.servic
   styleUrls: ['./redo-list.component.scss'],
 })
 export class RedoListComponent {
-  redoList: RedoList;
+  redoList: RedoList | any;
   constructor(
     public currentListService: CurrentListService,
     public localforageService: LocalforageService
   ) {
-    this.redoList = this.currentListService.redoList;
+    this.redoList = {};
+
+    this.localforageService.getItem('redoList').then((data: unknown) => {
+      console.log(data, 'hello from redol list');
+      this.redoList = data;
+      this.currentListService.redoList = this.redoList;
+    });
   }
   handleTodoToggle(todo: Todo) {
     todo.isFinished = !todo.isFinished;
   }
   deleteTodo(todo: Todo) {
     this.currentListService.removeTodo(todo.name);
+    this.localforageService.setItem('redoList', this.redoList);
   }
   editedTodo: Todo;
   editTodo(todo: Todo) {
@@ -41,5 +48,11 @@ export class RedoListComponent {
     if (this.editedTodo) {
       this.editedTodo.name = this.editorsTodo;
     }
+  }
+  handleCreateTodoButton() {
+    const newTodo: Todo = { name: '', isFinished: false };
+    this.currentListService.addTodo(newTodo);
+    this.editedTodo = newTodo;
+    this.isEditingTodo = true;
   }
 }

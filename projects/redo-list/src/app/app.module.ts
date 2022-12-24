@@ -7,9 +7,10 @@ import { RedoListComponent } from './redo-list/redo-list.component';
 import { FocusDirective } from './core/directives/focus.directive';
 import { LocalforageService } from './core/services/database/localforage.service';
 import { CurrentListService } from './core/services/current-list.service';
+import { CreateTodoComponent } from './redo-list/create-todo/create-todo.component';
 
 @NgModule({
-  declarations: [AppComponent, RedoListComponent, FocusDirective],
+  declarations: [AppComponent, RedoListComponent, FocusDirective, CreateTodoComponent],
   imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
