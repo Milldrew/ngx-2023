@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/redo-list",
+            "outputPath": "docs/",
             "index": "projects/redo-list/src/index.html",
             "main": "projects/redo-list/src/main.ts",
             "polyfills": "projects/redo-list/src/polyfills.ts",
@@ -27,9 +27,7 @@
               "projects/redo-list/src/favicon.ico",
               "projects/redo-list/src/assets"
             ],
-            "styles": [
-              "projects/redo-list/src/styles.scss"
-            ],
+            "styles": ["projects/redo-list/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -95,9 +93,7 @@
               "projects/redo-list/src/favicon.ico",
               "projects/redo-list/src/assets"
             ],
-            "styles": [
-              "projects/redo-list/src/styles.scss"
-            ],
+            "styles": ["projects/redo-list/src/styles.scss"],
             "scripts": []
           }
         }
