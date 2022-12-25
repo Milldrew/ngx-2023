@@ -18,7 +18,7 @@ export class CompletedListService {
   }
 }
 
-type CompletedLists = CompletedList[];
-type CompletedList = {
-  date: string;
+export type CompletedLists = CompletedList[];
+export type CompletedList = {
+  date: Date;
 };

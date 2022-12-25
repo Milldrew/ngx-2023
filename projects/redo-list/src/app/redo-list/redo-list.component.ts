@@ -5,6 +5,7 @@ import {
 } from '../core/services/current-list.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LocalforageService } from '../core/services/database/localforage.service';
+import { CompletedListService } from '../core/services/completed-list.service';
 
 @Component({
   selector: 'milldrew-redo-list',
@@ -15,7 +16,8 @@ export class RedoListComponent {
   redoList: RedoList | any;
   constructor(
     public currentListService: CurrentListService,
-    public localforageService: LocalforageService
+    public localforageService: LocalforageService,
+    public completedListService: CompletedListService
   ) {
     this.redoList = {};
 
@@ -70,4 +72,10 @@ export class RedoListComponent {
         this.currentListService.redoListFactory();
     }
   }
+  handleSuccesfulList() {
+    this.completedListService.addCompletedList(this.redoList.date);
+    this.currentListService.redoList = this.redoList =
+      this.currentListService.redoListFactory();
+  }
+  handleFailedList() {}
 }
