@@ -1,0 +1,14 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item" (click)="selectListTab()">
+    <p class="nav-link" [class.active]="selectedTab === 'LIST'">Redo List</p>
+  </li>
+  <li class="nav-item" (click)="selectProgressTab()">
+    <p class="nav-link" [class.active]="selectedTab === 'PROGRESS'">Progress</p>
+  </li>
+</ul>
+<div *ngIf="selectedTab === 'LIST'">
+  <ng-content select="[redo-list]"> </ng-content>
+</div>
+<div *ngIf="selectedTab === 'PROGRESS'">
+  <ng-content select="[progress]"> </ng-content>
+</div>

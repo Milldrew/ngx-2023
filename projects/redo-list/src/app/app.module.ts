@@ -8,9 +8,11 @@ import { FocusDirective } from './core/directives/focus.directive';
 import { LocalforageService } from './core/services/database/localforage.service';
 import { CurrentListService } from './core/services/current-list.service';
 import { CreateTodoComponent } from './redo-list/create-todo/create-todo.component';
+import { TabsComponent } from './redo-list/tabs/tabs.component';
+import { ProgressComponent } from './progress/progress.component';
 
 @NgModule({
-  declarations: [AppComponent, RedoListComponent, FocusDirective, CreateTodoComponent],
+  declarations: [AppComponent, RedoListComponent, FocusDirective, CreateTodoComponent, TabsComponent, ProgressComponent],
   imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
