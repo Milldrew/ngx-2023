@@ -66,12 +66,8 @@ export class RedoListComponent {
   }
   ngAfterContentInit() {
     if (typeof this.redoList !== 'object') {
-      this.redoList = this.currentListService.redoList = {
-        name: 'Redo List',
-        isFinished: false,
-        todos: [],
-        date: new Date().toString(),
-      };
+      this.redoList = this.currentListService.redoList =
+        this.currentListService.redoListFactory();
     }
   }
 }

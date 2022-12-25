@@ -2,13 +2,13 @@
 <ng-container *ngFor="let todo of redoList.todos">
   <ul>
     <li>{{ todo.name }} {{ todo.isFinished ? "DONE" : "NOT DONE" }}</li>
-    <button class="btn btn-small btn-danger" (click)="handleTodoToggle(todo)">
+    <button class="btn btn-small btn-warning" (click)="handleTodoToggle(todo)">
       {{ todo.isFinished ? "Not Finished" : "Finish" }}
     </button>
-    <button class="btn btn-small btn-danger" (click)="editTodo(todo)">
+    <button class="btn btn-small btn-warning" (click)="editTodo(todo)">
       Edit
     </button>
-    <button class="btn btn-small btn-danger" (click)="deleteTodo(todo)">
+    <button class="btn btn-small btn-warning" (click)="deleteTodo(todo)">
       Delete
     </button>
   </ul>
@@ -22,3 +22,5 @@
 />
 <milldrew-create-todo (createTodo)="handleCreateTodoButton()">
 </milldrew-create-todo>
+<button class="btn btn-success">Success</button>
+<button class="btn btn-danger">Failure</button>

@@ -9,16 +9,7 @@ import { CompletedListService } from './completed-list.service';
   providedIn: 'root',
 })
 export class CurrentListService {
-  redoList: RedoList = {
-    name: 'Redo List',
-    todos: [
-      { name: 'Brush Teeth', isFinished: false },
-      { name: 'Eat Healthy', isFinished: false },
-      { name: 'Fun', isFinished: false },
-    ],
-    isFinished: false,
-    date: new Date().toString(),
-  };
+  redoList: RedoList;
 
   constructor(public completedListService: CompletedListService) {}
   addTodo(todo: Todo) {
@@ -57,13 +48,21 @@ export class CurrentListService {
   markListIncomplete() {
     this.redoList.isFinished = false;
   }
+  redoListFactory(): RedoList {
+    return {
+      name: 'Redo List',
+      isFinished: false,
+      todos: [],
+      date: new Date(),
+    };
+  }
 }
 
 export type RedoList = {
   name: 'Redo List';
   todos: Todo[];
   isFinished: boolean;
-  date: string;
+  date: Date;
 };
 export type Todo = {
   name: string;
