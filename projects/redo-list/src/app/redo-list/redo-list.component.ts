@@ -6,6 +6,7 @@ import {
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LocalforageService } from '../core/services/database/localforage.service';
 import { CompletedListService } from '../core/services/completed-list.service';
+import { ProgressService } from '../core/services/progress.service';
 
 @Component({
   selector: 'milldrew-redo-list',
@@ -15,25 +16,13 @@ import { CompletedListService } from '../core/services/completed-list.service';
 export class RedoListComponent {
   redoList: RedoList | any;
   constructor(
+    public progressService: ProgressService,
     public currentListService: CurrentListService,
     public localforageService: LocalforageService,
     public completedListService: CompletedListService
   ) {
     this.redoList = {};
-
-    this.localforageService
-      .getItem('redoList')
-      .then((data: any) => {
-        if (data.todos) {
-          this.redoList = data;
-          this.currentListService.redoList = this.redoList;
-        } else {
-          this.redoList = this.currentListService.redoList;
-        }
-      })
-      .catch((_error) => {
-        this.redoList = this.currentListService.redoList;
-      });
+    this.redoList = this.currentListService.redoList;
   }
   handleTodoToggle(todo: Todo) {
     todo.isFinished = !todo.isFinished;
@@ -78,5 +67,4 @@ export class RedoListComponent {
       await this.currentListService.redoListFactory();
     alert('list submitted');
   }
-  handleFailedList() {}
 }
