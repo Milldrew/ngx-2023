@@ -66,16 +66,17 @@ export class RedoListComponent {
     this.editedTodo = newTodo;
     this.isEditingTodo = true;
   }
-  ngAfterContentInit() {
+  async ngAfterContentInit() {
     if (typeof this.redoList !== 'object') {
       this.redoList = this.currentListService.redoList =
-        this.currentListService.redoListFactory();
+        await this.currentListService.redoListFactory();
     }
   }
-  handleSuccesfulList() {
+  async handleSubmit() {
     this.completedListService.addCompletedList(this.redoList.date);
     this.currentListService.redoList = this.redoList =
-      this.currentListService.redoListFactory();
+      await this.currentListService.redoListFactory();
+    alert('list submitted');
   }
   handleFailedList() {}
 }
