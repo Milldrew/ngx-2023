@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CompletedLists } from '../core/services/completed-list.service';
 import {
   ProgressService,
   SubmittedTodo,
@@ -11,7 +10,6 @@ import {
   styleUrls: ['./progress.component.scss'],
 })
 export class ProgressComponent implements OnInit {
-  completedLists: CompletedLists;
   constructor(public progressService: ProgressService) {
     console.log(progressService.progress);
   }
