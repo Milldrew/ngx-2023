@@ -1,25 +1,30 @@
-<h1>{{ redoList.name }}</h1>
-<ng-container *ngFor="let todo of redoList.todos">
-  <ul>
-    <li>{{ todo.name }} {{ todo.isFinished ? "DONE" : "NOT DONE" }}</li>
-    <button class="btn btn-small btn-warning" (click)="handleTodoToggle(todo)">
-      {{ todo.isFinished ? "Not Finished" : "Finish" }}
-    </button>
-    <button class="btn btn-small btn-warning" (click)="editTodo(todo)">
-      Edit
-    </button>
-    <button class="btn btn-small btn-warning" (click)="deleteTodo(todo)">
-      Delete
-    </button>
-  </ul>
+<ng-container *ngIf="redoList">
+  <h1>{{ redoList.name }}</h1>
+  <ng-container *ngFor="let todo of redoList.todos">
+    <ul>
+      <li>{{ todo.name }} {{ todo.isFinished ? "DONE" : "NOT DONE" }}</li>
+      <button
+        class="btn btn-small btn-warning"
+        (click)="handleTodoToggle(todo)"
+      >
+        {{ todo.isFinished ? "Not Finished" : "Finish" }}
+      </button>
+      <button class="btn btn-small btn-warning" (click)="editTodo(todo)">
+        Edit
+      </button>
+      <button class="btn btn-small btn-warning" (click)="deleteTodo(todo)">
+        Delete
+      </button>
+    </ul>
+  </ng-container>
+  <input
+    milldrewFocus
+    [(ngModel)]="editorsTodo"
+    (keydown.enter)="stopEditing()"
+    (ngModelChange)="handleEditorChange()"
+    *ngIf="isEditingTodo"
+  />
+  <milldrew-create-todo (createTodo)="handleCreateTodoButton()">
+  </milldrew-create-todo>
+  <button (click)="handleSubmit()" class="btn btn-success">Submit</button>
 </ng-container>
-<input
-  milldrewFocus
-  [(ngModel)]="editorsTodo"
-  (keydown.enter)="stopEditing()"
-  (ngModelChange)="handleEditorChange()"
-  *ngIf="isEditingTodo"
-/>
-<milldrew-create-todo (createTodo)="handleCreateTodoButton()">
-</milldrew-create-todo>
-<button (click)="handleSubmit()" class="btn btn-success">Submit</button>

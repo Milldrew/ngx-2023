@@ -65,6 +65,7 @@ export class RedoListComponent {
     this.completedListService.addCompletedList(this.redoList.date);
     this.currentListService.redoList = this.redoList =
       await this.currentListService.redoListFactory();
+    this.progressService.updateProgress(this.redoList.todos);
     alert('list submitted');
   }
 }
