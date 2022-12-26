@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { CompletedLists } from '../core/services/completed-list.service';
 import {
-  CompletedLists,
-  CompletedListService,
-} from '../core/services/completed-list.service';
-import { ProgressService } from '../core/services/progress.service';
+  ProgressService,
+  SubmittedTodo,
+} from '../core/services/progress.service';
 
 @Component({
   selector: 'app-progress',
@@ -19,5 +19,9 @@ export class ProgressComponent implements OnInit {
   ngOnInit(): void {}
   ngAfterViewInit() {
     console.log(this.progressService.progress);
+  }
+
+  handleDeleteTodoButton(name: SubmittedTodo['name']) {
+    this.progressService.deleteTodo(name);
   }
 }
