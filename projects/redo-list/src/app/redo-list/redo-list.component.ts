@@ -62,9 +62,11 @@ export class RedoListComponent {
     }
   }
   async handleSubmit() {
+    this.localforageService.setItem('redoList', this.redoList);
     await this.progressService
       .updateProgress(this.redoList.todos)
       .catch(console.error);
+    debugger;
     this.currentListService.redoList = this.redoList =
       await this.currentListService.redoListFactory();
   }
