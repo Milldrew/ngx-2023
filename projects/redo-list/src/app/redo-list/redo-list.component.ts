@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import {
   CurrentListService,
   RedoList,
@@ -47,7 +48,7 @@ export class RedoListComponent {
     }
   }
   handleCreateTodoButton() {
-    const newTodo: Todo = { name: '', isFinished: false };
+    const newTodo: Todo = { name: '', isFinished: false, status: 'PENDING' };
     this.currentListService.addTodo(newTodo);
     if (!this.redoList.length) {
       this.redoList = this.currentListService.redoList;
@@ -62,7 +63,9 @@ export class RedoListComponent {
     }
   }
   async handleSubmit() {
-    this.localforageService.setItem('redoList', this.redoList);
+    let redoListCopy = _.cloneDeep(this.redoList);
+    this.currentListService.resetAllTodosState(redoListCopy);
+    this.localforageService.setItem('redoList', redoListCopy);
     await this.progressService
       .updateProgress(this.redoList.todos)
       .catch(console.error);
