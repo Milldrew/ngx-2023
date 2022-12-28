@@ -73,4 +73,13 @@ export class RedoListComponent {
     this.currentListService.redoList = this.redoList =
       await this.currentListService.redoListFactory();
   }
+  handleResetButton(todo: Todo) {
+    todo.status = 'PENDING';
+  }
+  handleFailedButton(todo: Todo) {
+    todo.status = 'FAILED';
+  }
+  handleSuccessButton(todo: Todo) {
+    todo.status = 'SUCCESS';
+  }
 }

@@ -2,17 +2,32 @@
   <h1>{{ redoList.name }}</h1>
   <ng-container *ngFor="let todo of redoList.todos">
     <ul>
-      <li>{{ todo.name }} {{ todo.isFinished ? "DONE" : "NOT DONE" }}</li>
+      <li>{{ todo.name }} {{ todo.status }}</li>
       <button
-        class="btn btn-small btn-warning"
-        (click)="handleTodoToggle(todo)"
+        id="success-redo-button"
+        (click)="handleSuccessButton(todo)"
+        class="btn btn-success"
       >
-        {{ todo.isFinished ? "Not Finished" : "Finish" }}
+        Success
       </button>
-      <button class="btn btn-small btn-warning" (click)="editTodo(todo)">
+      <button
+        id="failed-redo-button"
+        (click)="handleFailedButton(todo)"
+        class="btn btn-danger"
+      >
+        Failed
+      </button>
+      <button
+        id="failed-redo-button"
+        (click)="handleResetButton(todo)"
+        class="btn btn-warning"
+      >
+        Reset
+      </button>
+      <button class="btn btn-small btn-info" (click)="editTodo(todo)">
         Edit
       </button>
-      <button class="btn btn-small btn-warning" (click)="deleteTodo(todo)">
+      <button class="btn btn-small btn-danger" (click)="deleteTodo(todo)">
         Delete
       </button>
     </ul>
