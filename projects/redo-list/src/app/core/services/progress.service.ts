@@ -44,9 +44,10 @@ export class ProgressService {
           (todo) => todo.name === currentTodo.name
         );
         if (!matchingTodo) return MOCK_PROGRESS[0];
-        if (currentTodo.isFinished) {
+        if (currentTodo.status === 'SUCCESS') {
+          debugger;
           matchingTodo.successCount += 1;
-        } else {
+        } else if (currentTodo.status === 'FAILED') {
           matchingTodo.failureCount += 1;
         }
         return matchingTodo;
@@ -56,14 +57,17 @@ export class ProgressService {
       .map((currentTodo): SubmittedTodo => {
         const name = currentTodo.name;
         const isOnCurrentList = true;
-        let failureCount;
-        let successCount;
-        if (currentTodo.isFinished) {
-          failureCount = 0;
-          successCount = 1;
-        } else {
-          failureCount = 1;
-          successCount = 0;
+        let failureCount = currentTodo.failureCount
+          ? currentTodo.failureCount
+          : 0;
+        let successCount = currentTodo.successCount
+          ? currentTodo.successCount
+          : 0;
+        if (currentTodo.status === 'SUCCESS') {
+          debugger;
+          successCount += 1;
+        } else if (currentTodo.status === 'FAILED') {
+          failureCount += 1;
         }
         return { name, failureCount, successCount, isOnCurrentList };
       });
@@ -110,7 +114,6 @@ export class ProgressService {
     const indexToBeDeleted = progress.findIndex(
       (todo) => todo.name === 'ERROR'
     );
-    debugger;
     if (indexToBeDeleted > -1) {
       progress.splice(indexToBeDeleted, 1);
     }
