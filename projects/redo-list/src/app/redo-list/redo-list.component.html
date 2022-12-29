@@ -24,7 +24,16 @@
     (ngModelChange)="handleEditorChange()"
     *ngIf="isEditingTodo"
   />
-  <milldrew-create-todo (createTodo)="handleCreateTodoButton()">
+  <milldrew-create-todo
+    id="create-redo-button"
+    (createTodo)="handleCreateTodoButton()"
+  >
   </milldrew-create-todo>
-  <button (click)="handleSubmit()" class="btn btn-success">Submit</button>
+  <button
+    id="submit-redo-button"
+    (click)="handleSubmit()"
+    class="btn btn-success"
+  >
+    Submit
+  </button>
 </ng-container>
