@@ -73,6 +73,17 @@ export class CurrentListService {
         };
       });
   }
+
+  /**
+   * Takes an array of todos and resets all the status values to pending and isFinished values to false
+   */
+  resetAllTodosState(redoList: RedoList) {
+    redoList.isFinished = false;
+    redoList.todos.forEach((todo) => {
+      todo.isFinished = false;
+      todo.status = 'PENDING';
+    });
+  }
 }
 
 export type RedoList = {
@@ -84,4 +95,5 @@ export type RedoList = {
 export type Todo = {
   name: string;
   isFinished: boolean;
+  status: 'PENDING' | 'SUCCESS' | 'FAILED';
 };
