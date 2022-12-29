@@ -1,9 +1,24 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CompletedListService {
-
-  constructor() { }
+  completedLists: CompletedLists = [];
+  addCompletedList(list: CompletedList) {
+    this.completedLists.push(list);
+  }
+  removeCompletedList(list: CompletedList) {
+    const targetIndex = this.completedLists.findIndex(
+      (currentList) => currentList.date === list.date
+    );
+    if (targetIndex >= 0) {
+      this.completedLists.splice(targetIndex, 1);
+    }
+  }
 }
+
+type CompletedLists = CompletedList[];
+type CompletedList = {
+  date: string;
+};
