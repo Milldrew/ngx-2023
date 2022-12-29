@@ -10,9 +10,10 @@ import { CurrentListService } from './core/services/current-list.service';
 import { CreateTodoComponent } from './redo-list/create-todo/create-todo.component';
 import { TabsComponent } from './redo-list/tabs/tabs.component';
 import { ProgressComponent } from './progress/progress.component';
+import { PieChartDirective } from './progress/pie-chart.directive';
 
 @NgModule({
-  declarations: [AppComponent, RedoListComponent, FocusDirective, CreateTodoComponent, TabsComponent, ProgressComponent],
+  declarations: [AppComponent, RedoListComponent, FocusDirective, CreateTodoComponent, TabsComponent, ProgressComponent, PieChartDirective],
   imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
