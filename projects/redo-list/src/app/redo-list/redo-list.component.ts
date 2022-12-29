@@ -35,6 +35,7 @@ export class RedoListComponent {
   }
   handleTodoToggle(todo: Todo) {
     todo.isFinished = !todo.isFinished;
+    this.localforageService.setItem('redoList', this.redoList);
   }
   deleteTodo(todo: Todo) {
     this.currentListService.removeTodo(todo.name);
