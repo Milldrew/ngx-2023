@@ -10,6 +10,7 @@ import { ProgressService } from './core/services/progress.service';
 })
 export class AppComponent {
   constructor(
+    public progressService: ProgressService,
     public currentListService: CurrentListService,
     public localforageService: LocalforageService
   ) {
@@ -27,5 +28,6 @@ export class AppComponent {
         this.currentListService.redoList =
           await this.currentListService.redoListFactory();
       });
+    this.progressService.updateProgress();
   }
 }

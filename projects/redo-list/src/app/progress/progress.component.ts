@@ -3,6 +3,7 @@ import {
   CompletedLists,
   CompletedListService,
 } from '../core/services/completed-list.service';
+import { ProgressService } from '../core/services/progress.service';
 
 @Component({
   selector: 'app-progress',
@@ -11,9 +12,12 @@ import {
 })
 export class ProgressComponent implements OnInit {
   completedLists: CompletedLists;
-  constructor(public completedListService: CompletedListService) {
-    this.completedLists = this.completedListService.completedLists;
+  constructor(public progressService: ProgressService) {
+    console.log(progressService.progress);
   }
 
   ngOnInit(): void {}
+  ngAfterViewInit() {
+    console.log(this.progressService.progress);
+  }
 }

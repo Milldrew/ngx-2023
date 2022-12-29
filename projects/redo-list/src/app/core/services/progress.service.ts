@@ -11,7 +11,7 @@ export class ProgressService {
   /**
    * Takes the todos of the current redo list and updates the progress object
    */
-  async updateProgress(currentTodos: RedoList['todos']): Promise<Progress> {
+  async updateProgress(currentTodos?: RedoList['todos']): Promise<Progress> {
     return this.localforageService
       .getItem<Progress>('progress')
       .then((_progress: Progress | null) => {
@@ -26,6 +26,9 @@ export class ProgressService {
         };
         return this.progress;
       });
+  }
+  getProgress() {
+    return this.localforageService.getItem<Progress>('progress');
   }
 }
 
