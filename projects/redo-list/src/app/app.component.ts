@@ -26,7 +26,6 @@ export class AppComponent {
         this.progressService.updateProgress(
           this.currentListService.redoList.todos
         );
-        debugger;
       })
       .catch(async (_error) => {
         this.currentListService.redoList =
@@ -34,7 +33,6 @@ export class AppComponent {
         this.progressService.updateProgress(
           this.currentListService.redoList.todos
         );
-        debugger;
       });
   }
 }

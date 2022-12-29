@@ -3,7 +3,7 @@ const MOCK_PROGRESS: Progress = [
     successCount: 1,
     failureCount: 1,
     isOnCurrentList: true,
-    name: "ERROR ITEM YOUR KEY DOESN'T EXIST",
+    name: 'ERROR',
   },
 ];
 import { Injectable } from '@angular/core';
@@ -90,6 +90,7 @@ export class ProgressService {
         if (currentTodos) {
           console.log(currentTodos, this.progress, 'from update');
           this.progress = this.updateTodos(currentTodos, this.progress);
+          this.removeError(this.progress);
         }
         this.setProgress();
         return this.progress;
@@ -99,10 +100,20 @@ export class ProgressService {
         if (currentTodos) {
           console.log(currentTodos, this.progress, 'from update');
           this.progress = this.updateTodos(currentTodos, this.progress);
+          this.removeError(this.progress);
         }
         this.setProgress();
         return this.progress;
       });
+  }
+  removeError(progress: Progress) {
+    const indexToBeDeleted = progress.findIndex(
+      (todo) => todo.name === 'ERROR'
+    );
+    debugger;
+    if (indexToBeDeleted > -1) {
+      progress.splice(indexToBeDeleted, 1);
+    }
   }
   setProgress() {
     return this.localforageService.setItem('progress', this.progress);

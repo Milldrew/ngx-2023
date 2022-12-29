@@ -55,6 +55,7 @@ export class CurrentListService {
         if (list !== null) {
           return list;
         } else {
+          debugger;
           return {
             name: 'Redo List',
             isFinished: false,
