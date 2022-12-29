@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { CurrentListService } from './core/services/current-list.service';
 import { LocalforageService } from './core/services/database/localforage.service';
+import { ProgressService } from './core/services/progress.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,23 @@ import { LocalforageService } from './core/services/database/localforage.service
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'redo-list';
-  constructor() {}
+  constructor(
+    public currentListService: CurrentListService,
+    public localforageService: LocalforageService
+  ) {
+    this.localforageService
+      .getItem('redoList')
+      .then(async (data: any) => {
+        if (data.todos) {
+          this.currentListService.redoList = data;
+        } else {
+          this.currentListService.redoList =
+            await this.currentListService.redoListFactory();
+        }
+      })
+      .catch(async (_error) => {
+        this.currentListService.redoList =
+          await this.currentListService.redoListFactory();
+      });
+  }
 }
