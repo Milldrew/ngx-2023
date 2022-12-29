@@ -22,5 +22,5 @@
 />
 <milldrew-create-todo (createTodo)="handleCreateTodoButton()">
 </milldrew-create-todo>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-danger">Failure</button>
+<button (click)="handleSuccesfulList()" class="btn btn-success">Success</button>
+<button (click)="handleFailedList()" class="btn btn-danger">Failure</button>

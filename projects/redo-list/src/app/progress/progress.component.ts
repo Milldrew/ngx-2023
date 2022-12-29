@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  CompletedLists,
+  CompletedListService,
+} from '../core/services/completed-list.service';
 
 @Component({
   selector: 'app-progress',
   templateUrl: './progress.component.html',
-  styleUrls: ['./progress.component.scss']
+  styleUrls: ['./progress.component.scss'],
 })
 export class ProgressComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  completedLists: CompletedLists;
+  constructor(public completedListService: CompletedListService) {
+    this.completedLists = this.completedListService.completedLists;
   }
 
+  ngOnInit(): void {}
 }
