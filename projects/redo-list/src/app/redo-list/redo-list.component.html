@@ -1,0 +1,21 @@
+<h1>{{ redoList.name }}: {{ redoList.date }}</h1>
+<ng-container *ngFor="let todo of redoList.todos">
+  <ul>
+    <li>{{ todo.name }} {{ todo.isFinished ? "DONE" : "NOT DONE" }}</li>
+    <button class="btn btn-small btn-danger" (click)="handleTodoToggle(todo)">
+      {{ todo.isFinished ? "Not Finished" : "Finish" }}
+    </button>
+    <button class="btn btn-small btn-danger" (click)="editTodo(todo)">
+      Edit
+    </button>
+    <button class="btn btn-small btn-danger" (click)="deleteTodo(todo)">
+      Delete
+    </button>
+  </ul>
+  <input
+    [(ngModel)]="editorsTodo"
+    (change)="handleEditorChange(todo)"
+    (keydown.enter)="stopEditing()"
+    *ngIf="isEditingTodo"
+  />
+</ng-container>
