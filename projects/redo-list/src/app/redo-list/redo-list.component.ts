@@ -5,7 +5,6 @@ import {
 } from '../core/services/current-list.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LocalforageService } from '../core/services/database/localforage.service';
-import { CompletedListService } from '../core/services/completed-list.service';
 import { ProgressService } from '../core/services/progress.service';
 
 @Component({
@@ -18,8 +17,7 @@ export class RedoListComponent {
   constructor(
     public progressService: ProgressService,
     public currentListService: CurrentListService,
-    public localforageService: LocalforageService,
-    public completedListService: CompletedListService
+    public localforageService: LocalforageService
   ) {
     this.redoList = this.currentListService.redoList;
   }
@@ -51,6 +49,9 @@ export class RedoListComponent {
   handleCreateTodoButton() {
     const newTodo: Todo = { name: '', isFinished: false };
     this.currentListService.addTodo(newTodo);
+    if (!this.redoList.length) {
+      this.redoList = this.currentListService.redoList;
+    }
     this.editedTodo = newTodo;
     this.isEditingTodo = true;
   }

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CompletedListService } from './completed-list.service';
 import { LocalforageService } from './database/localforage.service';
 
 /**
@@ -12,10 +11,7 @@ import { LocalforageService } from './database/localforage.service';
 export class CurrentListService {
   redoList: RedoList;
 
-  constructor(
-    public completedListService: CompletedListService,
-    public localforageService: LocalforageService
-  ) {}
+  constructor(public localforageService: LocalforageService) {}
   addTodo(todo: Todo) {
     this.redoList.todos.push(todo);
   }

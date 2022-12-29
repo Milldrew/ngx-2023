@@ -23,11 +23,18 @@ export class AppComponent {
           this.currentListService.redoList =
             await this.currentListService.redoListFactory();
         }
+        this.progressService.updateProgress(
+          this.currentListService.redoList.todos
+        );
+        debugger;
       })
       .catch(async (_error) => {
         this.currentListService.redoList =
           await this.currentListService.redoListFactory();
+        this.progressService.updateProgress(
+          this.currentListService.redoList.todos
+        );
+        debugger;
       });
-    this.progressService.updateProgress();
   }
 }
