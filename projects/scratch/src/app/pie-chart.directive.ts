@@ -26,7 +26,7 @@ const MOCK_DATA = [
     value: 8,
   },
   {
-    name: 'F',
+    name: 'G',
     value: 8,
   },
 ];
@@ -42,6 +42,7 @@ const getValues = (data: Data) => data.value;
  *    • height
  *    • width
  *    • viewBox
+ *    • unit type dollars, pounds inches etc..
  */
 @Directive({
   selector: '[milldrewPieChart]',
@@ -56,7 +57,7 @@ export class PieChartDirective {
       }
   >[];
 
-  arcLabel = d3.arc().innerRadius(0).outerRadius(700);
+  arcLabel = d3.arc().innerRadius(0).outerRadius(750);
   names: string[];
   values: number[];
   range: number[];
@@ -65,6 +66,16 @@ export class PieChartDirective {
   title: 'title';
 
   constructor(public hostElement: ElementRef<HTMLElement>) {
+    this.initializeProperties();
+  }
+  ngOnInit() {
+    this.createSVG();
+    this.createPie();
+    this.createSlices();
+    this.addNameTextToEachSlice();
+    this.addValueTextToEachSlice();
+  }
+  initializeProperties() {
     this.names = d3.map(MOCK_DATA, getNames);
     this.values = d3.map(MOCK_DATA, getValues);
     this.range = d3
@@ -75,20 +86,21 @@ export class PieChartDirective {
       (t) => d3.interpolateSpectral(t * 0.8 + 0.1),
       this.names.length
     );
-    console.log(this.names, this.values, this.colors, this.range);
     this.orindalScale = d3.scaleOrdinal<string, string, never>(
       this.names,
       this.colors
     );
   }
 
-  ngOnInit() {
+  createSVG() {
     this.svg = d3
       .select('#pie-container')
       .append('svg')
       .attr('width', '1000')
       .attr('height', '1000')
       .attr('viewBox', [-500, -500, 1000, 1000]);
+  }
+  createPie() {
     this.arcs = d3
       .pie()
       .padAngle(0)
@@ -100,8 +112,6 @@ export class PieChartDirective {
           return this.values[index.valueOf()];
         }
       })(this.range);
-    this.createSlices();
-    this.addTextToEachSlice();
   }
 
   createSlices() {
@@ -121,7 +131,7 @@ export class PieChartDirective {
       });
   }
 
-  addTextToEachSlice() {
+  addNameTextToEachSlice() {
     this.svg
       .append('g')
       .attr('font-family', 'sans-serif')
@@ -130,10 +140,37 @@ export class PieChartDirective {
       .selectAll('text')
       .data(this.arcs)
       .join('text')
-      .attr('transform', (d: any) => `translate(${this.arcLabel.centroid(d)})`)
+      .attr('transform', (d: any) => {
+        const [textXposition, textYposition] = this.arcLabel.centroid(d);
+        return `translate(${[textXposition, textYposition - 20]})`;
+      })
       .selectAll('tspan')
       .data((d, index) => {
-        return `${MOCK_DATA[index].name}, Value: ${MOCK_DATA[index].value}`;
+        return `${MOCK_DATA[index].name}`;
+      })
+      .join('tspan')
+      /*
+      .attr('x', 0)
+      .attr('font-weight', (_, i) => (i ? null : 'bold'))
+      */
+      .text((d) => d);
+  }
+  addValueTextToEachSlice() {
+    this.svg
+      .append('g')
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', 30)
+      .attr('text-anchor', 'middle')
+      .selectAll('text')
+      .data(this.arcs)
+      .join('text')
+      .attr('transform', (d: any) => {
+        const [xTextPosition, yTextPosition] = this.arcLabel.centroid(d);
+        return `translate(${[xTextPosition, yTextPosition + 20]})`;
+      })
+      .selectAll('tspan')
+      .data((d, index) => {
+        return `${MOCK_DATA[index].value}`;
       })
       .join('tspan')
       /*
