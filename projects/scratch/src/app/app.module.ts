@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { PieChartDirective } from './pie-chart.directive';
+import { PieChartBaseDirective } from './pie-chart-base.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PieChartDirective
+    PieChartDirective,
+    PieChartBaseDirective
   ],
   imports: [
     BrowserModule
