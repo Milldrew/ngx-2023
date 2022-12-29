@@ -1,11 +1,11 @@
-const MOCK_PROGRESS: Progress = {
-  exercise: {
+const MOCK_PROGRESS: Progress = [
+  {
     successCount: 1,
     failureCount: 1,
     isOnCurrentList: true,
-    name: 'exercise',
+    name: "ERROR ITEM YOUR KEY DOESN'T EXIST",
   },
-};
+];
 import { Injectable } from '@angular/core';
 import { RedoList } from './current-list.service';
 import { LocalforageService } from './database/localforage.service';
@@ -25,21 +25,22 @@ export class ProgressService {
    */
   updateTodos(currentTodos: RedoList['todos'], progress: Progress): Progress {
     const currentNames = currentTodos.map((todo) => todo.name);
-    const oldNonCurrentTodos: SubmittedTodo[] = [];
-    const oldCurrentTodos: SubmittedTodo[] = [];
-    for (const submittedTodoKey in progress) {
-      const submittedTodoValue = progress[submittedTodoKey];
-      if (currentNames.includes(submittedTodoKey)) {
-        oldCurrentTodos.push(submittedTodoValue);
-      } else {
-        oldNonCurrentTodos.push(submittedTodoValue);
-      }
-    }
+    const oldNonCurrentTodos: SubmittedTodo[] = progress.filter(
+      (todo) => !currentNames.includes(todo.name)
+    );
+    oldNonCurrentTodos.forEach((todo) => (todo.isOnCurrentList = false));
+    const oldCurrentTodos: SubmittedTodo[] = progress.filter((todo) =>
+      currentNames.includes(todo.name)
+    );
+    oldCurrentTodos.forEach((todo) => (todo.isOnCurrentList = true));
     const oldCurrentTodoNames = oldCurrentTodos.map((todo) => todo.name);
     const updatedSubmits = currentTodos
       .filter((todo) => oldCurrentTodoNames.includes(todo.name))
       .map((currentTodo): SubmittedTodo => {
-        const matchingTodo = progress[currentTodo.name];
+        const matchingTodo = progress.find(
+          (todo) => todo.name === currentTodo.name
+        );
+        if (!matchingTodo) return MOCK_PROGRESS[0];
         if (currentTodo.isFinished) {
           matchingTodo.successCount += 1;
         } else {
@@ -70,13 +71,8 @@ export class ProgressService {
       { oldNonCurrentTodos },
       'end'
     );
-    const allTodos = [...newSubmits, ...updatedSubmits];
-    const updatedProgress = allTodos.reduce((progress: any, currentTodo) => {
-      progress[currentTodo.name] = currentTodo;
-      return progress;
-    }, {});
-    console.log({ updatedProgress }, 'pre return');
-    return updatedProgress;
+    const allTodos = [...newSubmits, ...updatedSubmits, ...oldNonCurrentTodos];
+    return allTodos;
   }
   /**
    * Takes the todos of the current redo list and updates the progress object
@@ -116,12 +112,7 @@ export class ProgressService {
 /**
  * Contains an object whos keys represent the users todo goal, and the value of that key represents the.
  */
-type Progress = {
-  /**
-   * The key value is the name of the todo and describes the goal of the user
-   */
-  [key: string]: SubmittedTodo;
-};
+type Progress = SubmittedTodo[];
 
 /**
  * Contains the state of the todo
