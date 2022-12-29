@@ -11,6 +11,11 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "ngx-milld3": [
+        "dist/ngx-milld3"
+      ]
+    },
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,

@@ -11,10 +11,19 @@ import { CreateTodoComponent } from './redo-list/create-todo/create-todo.compone
 import { TabsComponent } from './redo-list/tabs/tabs.component';
 import { ProgressComponent } from './progress/progress.component';
 import { PieChartDirective } from './progress/pie-chart.directive';
+import { Milld3PieChartModule } from 'ngx-milld3';
 
 @NgModule({
-  declarations: [AppComponent, RedoListComponent, FocusDirective, CreateTodoComponent, TabsComponent, ProgressComponent, PieChartDirective],
-  imports: [BrowserModule, FormsModule],
+  declarations: [
+    AppComponent,
+    RedoListComponent,
+    FocusDirective,
+    CreateTodoComponent,
+    TabsComponent,
+    ProgressComponent,
+    PieChartDirective,
+  ],
+  imports: [BrowserModule, FormsModule, Milld3PieChartModule],
   providers: [],
   bootstrap: [AppComponent],
 })

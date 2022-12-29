@@ -1,20 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { Milld3PieChartModule } from 'projects/ngx-milld3/src/public-api';
 
 import { AppComponent } from './app.component';
-import { PieChartDirective } from './pie-chart.directive';
-import { PieChartBaseDirective } from './pie-chart-base.directive';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PieChartDirective,
-    PieChartBaseDirective
-  ],
-  imports: [
-    BrowserModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, Milld3PieChartModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
