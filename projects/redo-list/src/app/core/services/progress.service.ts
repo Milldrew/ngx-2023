@@ -1,5 +1,10 @@
 const MOCK_PROGRESS: Progress = {
-  Exercise: { successCount: 1, failureCount: 1, isOnCurrentList: true },
+  exercise: {
+    successCount: 1,
+    failureCount: 1,
+    isOnCurrentList: true,
+    name: 'exercise',
+  },
 };
 import { Injectable } from '@angular/core';
 import { RedoList } from './current-list.service';
@@ -18,11 +23,47 @@ export class ProgressService {
    * If the todo was not finished its failure count is incremented by one
    * If the todo was finished its success count is incremented by one
    */
-  updateTodos(
-    currentTodos: RedoList['todos'],
-    progressTodos: SubmittedTodo[]
-  ): SubmittedTodo[] {
-    return progressTodos;
+  updateTodos(currentTodos: RedoList['todos'], progress: Progress): Progress {
+    const currentNames = currentTodos.map((todo) => todo.name);
+    const oldNonCurrentTodos: SubmittedTodo[] = [];
+    const oldCurrentTodos: SubmittedTodo[] = [];
+    for (const submittedTodoKey in progress) {
+      const submittedTodoValue = progress[submittedTodoKey];
+      if (currentNames.includes(submittedTodoKey)) {
+        oldCurrentTodos.push(submittedTodoValue);
+      } else {
+        oldNonCurrentTodos.push(submittedTodoValue);
+      }
+    }
+    const oldCurrentTodoNames = oldCurrentTodos.map((todo) => todo.name);
+    const updatedSubmits = currentTodos
+      .filter((todo) => !oldCurrentTodoNames.includes(todo.name))
+      .map((currentTodo): SubmittedTodo => {
+        const matchingTodo = progress[currentTodo.name];
+        if (currentTodo.isFinished) {
+          matchingTodo.successCount += 1;
+        } else {
+          matchingTodo.failureCount += 1;
+        }
+        return matchingTodo;
+      });
+    const newSubmits = currentTodos
+      .filter((todo) => oldCurrentTodoNames.includes(todo.name))
+      .map((currentTodo): SubmittedTodo => {
+        const name = currentTodo.name;
+        const isOnCurrentList = true;
+        let failureCount;
+        let successCount;
+        if (currentTodo.isFinished) {
+          failureCount = 0;
+          successCount = 1;
+        } else {
+          failureCount = 1;
+          successCount = 0;
+        }
+        return { name, failureCount, successCount, isOnCurrentList };
+      });
+    return progress;
   }
   /**
    * Takes the todos of the current redo list and updates the progress object
@@ -30,14 +71,29 @@ export class ProgressService {
   async updateProgress(currentTodos?: RedoList['todos']): Promise<Progress> {
     return this.localforageService
       .getItem<Progress>('progress')
-      .then((_progress: Progress | null) => {
-        this.progress = MOCK_PROGRESS;
+      .then((progress: Progress | null) => {
+        if (!progress) {
+          this.progress = MOCK_PROGRESS;
+        } else {
+          this.progress = progress;
+        }
+        if (currentTodos) {
+          this.updateTodos(currentTodos, this.progress);
+        }
+        this.setProgress();
         return this.progress;
       })
       .catch((_error) => {
         this.progress = MOCK_PROGRESS;
+        if (currentTodos) {
+          this.updateTodos(currentTodos, this.progress);
+        }
+        this.setProgress();
         return this.progress;
       });
+  }
+  setProgress() {
+    return this.localforageService.setItem('progress', this.progress);
   }
   getProgress() {
     return this.localforageService.getItem<Progress>('progress');
@@ -58,6 +114,7 @@ type Progress = {
  * Contains the state of the todo
  */
 type SubmittedTodo = {
+  name: string;
   isOnCurrentList: boolean;
   successCount: number;
   failureCount: number;
