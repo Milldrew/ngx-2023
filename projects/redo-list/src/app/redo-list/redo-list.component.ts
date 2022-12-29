@@ -21,7 +21,6 @@ export class RedoListComponent {
     public localforageService: LocalforageService,
     public completedListService: CompletedListService
   ) {
-    this.redoList = {};
     this.redoList = this.currentListService.redoList;
   }
   handleTodoToggle(todo: Todo) {
@@ -62,10 +61,10 @@ export class RedoListComponent {
     }
   }
   async handleSubmit() {
-    this.completedListService.addCompletedList(this.redoList.date);
+    await this.progressService
+      .updateProgress(this.redoList.todos)
+      .catch(console.error);
     this.currentListService.redoList = this.redoList =
       await this.currentListService.redoListFactory();
-    this.progressService.updateProgress(this.redoList.todos);
-    alert('list submitted');
   }
 }

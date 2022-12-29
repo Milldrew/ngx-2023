@@ -37,7 +37,7 @@ export class ProgressService {
     }
     const oldCurrentTodoNames = oldCurrentTodos.map((todo) => todo.name);
     const updatedSubmits = currentTodos
-      .filter((todo) => !oldCurrentTodoNames.includes(todo.name))
+      .filter((todo) => oldCurrentTodoNames.includes(todo.name))
       .map((currentTodo): SubmittedTodo => {
         const matchingTodo = progress[currentTodo.name];
         if (currentTodo.isFinished) {
@@ -48,7 +48,7 @@ export class ProgressService {
         return matchingTodo;
       });
     const newSubmits = currentTodos
-      .filter((todo) => oldCurrentTodoNames.includes(todo.name))
+      .filter((todo) => !oldCurrentTodoNames.includes(todo.name))
       .map((currentTodo): SubmittedTodo => {
         const name = currentTodo.name;
         const isOnCurrentList = true;
@@ -63,7 +63,20 @@ export class ProgressService {
         }
         return { name, failureCount, successCount, isOnCurrentList };
       });
-    return progress;
+    console.log(
+      { newSubmits },
+      { updatedSubmits },
+      { oldCurrentTodos },
+      { oldNonCurrentTodos },
+      'end'
+    );
+    const allTodos = [...newSubmits, ...updatedSubmits];
+    const updatedProgress = allTodos.reduce((progress: any, currentTodo) => {
+      progress[currentTodo.name] = currentTodo;
+      return progress;
+    }, {});
+    console.log({ updatedProgress }, 'pre return');
+    return updatedProgress;
   }
   /**
    * Takes the todos of the current redo list and updates the progress object
@@ -72,13 +85,12 @@ export class ProgressService {
     return this.localforageService
       .getItem<Progress>('progress')
       .then((progress: Progress | null) => {
-        if (!progress) {
-          this.progress = MOCK_PROGRESS;
-        } else {
+        if (progress) {
           this.progress = progress;
         }
         if (currentTodos) {
-          this.updateTodos(currentTodos, this.progress);
+          console.log(currentTodos, this.progress, 'from update');
+          this.progress = this.updateTodos(currentTodos, this.progress);
         }
         this.setProgress();
         return this.progress;
@@ -86,7 +98,8 @@ export class ProgressService {
       .catch((_error) => {
         this.progress = MOCK_PROGRESS;
         if (currentTodos) {
-          this.updateTodos(currentTodos, this.progress);
+          console.log(currentTodos, this.progress, 'from update');
+          this.progress = this.updateTodos(currentTodos, this.progress);
         }
         this.setProgress();
         return this.progress;
