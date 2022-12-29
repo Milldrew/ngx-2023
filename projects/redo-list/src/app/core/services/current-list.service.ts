@@ -11,7 +11,11 @@ import { CompletedListService } from './completed-list.service';
 export class CurrentListService {
   redoList: RedoList = {
     name: 'Redo List',
-    todos: [{ name: 'Brush Teeth', isFinished: false }],
+    todos: [
+      { name: 'Brush Teeth', isFinished: false },
+      { name: 'Eat Healthy', isFinished: false },
+      { name: 'Fun', isFinished: false },
+    ],
     isFinished: false,
     date: new Date().toString(),
   };
