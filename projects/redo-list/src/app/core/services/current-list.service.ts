@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CompletedListService } from './completed-list.service';
+import { LocalforageService } from './database/localforage.service';
 
 /**
  * This is for managing the redo lists state
@@ -11,7 +12,10 @@ import { CompletedListService } from './completed-list.service';
 export class CurrentListService {
   redoList: RedoList;
 
-  constructor(public completedListService: CompletedListService) {}
+  constructor(
+    public completedListService: CompletedListService,
+    public localforageService: LocalforageService
+  ) {}
   addTodo(todo: Todo) {
     this.redoList.todos.push(todo);
   }
@@ -48,13 +52,29 @@ export class CurrentListService {
   markListIncomplete() {
     this.redoList.isFinished = false;
   }
-  redoListFactory(): RedoList {
-    return {
-      name: 'Redo List',
-      isFinished: false,
-      todos: [],
-      date: new Date(),
-    };
+  async redoListFactory(): Promise<RedoList> {
+    return this.localforageService
+      .getItem<RedoList>('redoList')
+      .then((list): RedoList => {
+        if (list !== null) {
+          return list;
+        } else {
+          return {
+            name: 'Redo List',
+            isFinished: false,
+            todos: [],
+            date: new Date(),
+          };
+        }
+      })
+      .catch((_error) => {
+        return {
+          name: 'Redo List',
+          isFinished: false,
+          todos: [],
+          date: new Date(),
+        };
+      });
   }
 }
 

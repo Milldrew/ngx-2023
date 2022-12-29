@@ -1,4 +1,4 @@
-<h1>{{ redoList.name }}: {{ redoList.date }}</h1>
+<h1>{{ redoList.name }}</h1>
 <ng-container *ngFor="let todo of redoList.todos">
   <ul>
     <li>{{ todo.name }} {{ todo.isFinished ? "DONE" : "NOT DONE" }}</li>
@@ -22,5 +22,4 @@
 />
 <milldrew-create-todo (createTodo)="handleCreateTodoButton()">
 </milldrew-create-todo>
-<button (click)="handleSuccesfulList()" class="btn btn-success">Success</button>
-<button (click)="handleFailedList()" class="btn btn-danger">Failure</button>
+<button (click)="handleSubmit()" class="btn btn-success">Submit</button>

@@ -14,7 +14,7 @@ export class LocalforageService {
   setItem(key: string, value: any) {
     localforage.setItem(key, value).then(console.log).catch(console.log);
   }
-  getItem(key: string) {
-    return localforage.getItem(key);
+  async getItem<T>(key: string): Promise<T | null> {
+    return localforage.getItem<T>(key);
   }
 }
