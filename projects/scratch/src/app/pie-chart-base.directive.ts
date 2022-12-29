@@ -1,35 +1,7 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 import * as d3 from 'd3';
-const MOCK_DATA = [
-  {
-    name: 'A',
-    value: 3,
-  },
-  {
-    name: 'B',
-    value: 5,
-  },
-  {
-    name: 'C',
-    value: 2,
-  },
-  {
-    name: 'D',
-    value: 8,
-  },
-  {
-    name: 'E',
-    value: 8,
-  },
-  {
-    name: 'F',
-    value: 8,
-  },
-  {
-    name: 'G',
-    value: 8,
-  },
-];
+type PieChartData = SliceData[];
+type SliceData = { name: string; value: number };
 type Data = { name: string; value: number };
 const getNames = (data: Data) => data.name;
 const getValues = (data: Data) => data.value;
@@ -47,7 +19,7 @@ const getValues = (data: Data) => data.value;
 @Directive({
   selector: '[appPieChartBase]',
 })
-export class PieChartBaseDirective {
+export class PieChartBaseDirective implements OnChanges {
   arc = d3.arc().innerRadius(0).outerRadius(500);
   svg: d3.Selection<SVGSVGElement, unknown, HTMLElement, any>;
   arcs: d3.PieArcDatum<
@@ -65,19 +37,9 @@ export class PieChartBaseDirective {
   orindalScale: d3.ScaleOrdinal<string, string, never>;
   title: 'title';
 
-  constructor(public hostElement: ElementRef<HTMLElement>) {
-    this.initializeProperties();
-  }
-  ngOnInit() {
-    this.createSVG();
-    this.createPie();
-    this.createSlices();
-    this.addNameTextToEachSlice();
-    this.addValueTextToEachSlice();
-  }
   initializeProperties() {
-    this.names = d3.map(MOCK_DATA, getNames);
-    this.values = d3.map(MOCK_DATA, getValues);
+    this.names = d3.map(this.pieChartData, getNames);
+    this.values = d3.map(this.pieChartData, getValues);
     this.range = d3
       .range(this.names.length)
       .filter((number) => !isNaN(this.values[number]));
@@ -146,7 +108,7 @@ export class PieChartBaseDirective {
       })
       .selectAll('tspan')
       .data((d, index) => {
-        return `${MOCK_DATA[index].name}`;
+        return `${this.pieChartData[index].name}`;
       })
       .join('tspan')
       /*
@@ -170,7 +132,7 @@ export class PieChartBaseDirective {
       })
       .selectAll('tspan')
       .data((d, index) => {
-        return `${MOCK_DATA[index].value}`;
+        return `${this.pieChartData[index].value} ${this.units}`;
       })
       .join('tspan')
       /*
@@ -180,4 +142,7 @@ export class PieChartBaseDirective {
       */
       .text((d) => d);
   }
+  @Input() units: string;
+  @Input() pieChartData: PieChartData;
+  ngOnChanges() {}
 }
