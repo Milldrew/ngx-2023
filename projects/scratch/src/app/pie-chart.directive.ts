@@ -47,6 +47,16 @@ const getValues = (data: Data) => data.value;
   selector: '[milldrewPieChart]',
 })
 export class PieChartDirective {
+  arc = d3.arc().innerRadius(0).outerRadius(500);
+  svg: d3.Selection<SVGSVGElement, unknown, HTMLElement, any>;
+  arcs: d3.PieArcDatum<
+    | number
+    | {
+        valueOf(): number;
+      }
+  >[];
+
+  arcLabel = d3.arc().innerRadius(0).outerRadius(700);
   names: string[];
   values: number[];
   range: number[];
@@ -71,15 +81,7 @@ export class PieChartDirective {
       this.colors
     );
   }
-  svg: d3.Selection<SVGSVGElement, unknown, HTMLElement, any>;
-  arcs: d3.PieArcDatum<
-    | number
-    | {
-        valueOf(): number;
-      }
-  >[];
 
-  arcLabel = d3.arc().innerRadius(0).outerRadius(700);
   ngOnInit() {
     this.svg = d3
       .select('#pie-container')
@@ -102,7 +104,6 @@ export class PieChartDirective {
     this.addTextToEachSlice();
   }
 
-  arc = d3.arc().innerRadius(0).outerRadius(500);
   createSlices() {
     this.svg
       .append('g')
