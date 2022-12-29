@@ -11,7 +11,7 @@ export class LocalforageService {
   constructor() {
     localforage.config(localforageOptions);
   }
-  setItem(key: string, value: unknown) {
+  setItem(key: string, value: any) {
     localforage.setItem(key, value).then(console.log).catch(console.log);
   }
   getItem(key: string) {
