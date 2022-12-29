@@ -55,7 +55,6 @@ export class CurrentListService {
         if (list !== null) {
           return list;
         } else {
-          debugger;
           return {
             name: 'Redo List',
             isFinished: false,
@@ -96,4 +95,6 @@ export type Todo = {
   name: string;
   isFinished: boolean;
   status: 'PENDING' | 'SUCCESS' | 'FAILED';
+  successCount?: number;
+  failureCount?: number;
 };
