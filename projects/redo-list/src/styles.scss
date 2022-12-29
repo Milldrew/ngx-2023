@@ -1,7 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-
+$dimmed-white: #989898;
+$dark-background: #121212;
 body,
 app-root {
-  color: #fff;
-  background-color: #000;
+  color: $dimmed-white;
+  background-color: $dark-background;
+}
+
+input {
+  color: $dimmed-white;
+  background-color: $dark-background;
+}
+li.nav-item,
+p.nav-link.active {
+  color: $dimmed-white !important;
+  background-color: $dark-background !important;
+  border-color: white;
 }
