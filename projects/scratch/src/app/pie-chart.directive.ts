@@ -38,7 +38,6 @@ const getValues = (data: Data) => data.value;
  *  The Pie Chart has a title at the top and each slice of the pie chart has a label and the value
  *  @Input
  *    • Parent Element Id
- *    • Chart Title
  *    • data [{name: string, value: number} ...]
  *    • height
  *    • width
@@ -72,14 +71,23 @@ export class PieChartDirective {
       this.colors
     );
   }
+  svg: d3.Selection<SVGSVGElement, unknown, HTMLElement, any>;
+  arcs: d3.PieArcDatum<
+    | number
+    | {
+        valueOf(): number;
+      }
+  >[];
+
+  arcLabel = d3.arc().innerRadius(0).outerRadius(700);
   ngOnInit() {
-    const svg = d3
+    this.svg = d3
       .select('#pie-container')
       .append('svg')
       .attr('width', '1000')
       .attr('height', '1000')
       .attr('viewBox', [-500, -500, 1000, 1000]);
-    const arcs = d3
+    this.arcs = d3
       .pie()
       .padAngle(0)
       .sort(null)
@@ -90,34 +98,38 @@ export class PieChartDirective {
           return this.values[index.valueOf()];
         }
       })(this.range);
-    const arc = d3.arc().innerRadius(0).outerRadius(500);
-    const arcLabel = d3.arc().innerRadius(0).outerRadius(700);
-    const color = d3.scaleOrdinal(this.names, this.colors);
+    this.createSlices();
+    this.addTextToEachSlice();
+  }
 
-    svg
+  arc = d3.arc().innerRadius(0).outerRadius(500);
+  createSlices() {
+    this.svg
       .append('g')
       .attr('stroke', 'black')
       .attr('stroke-width', 1)
       .attr('stroke-linejoin', 'round')
       .selectAll('path')
-      .data(arcs)
+      .data(this.arcs)
       .join('path')
       .attr('fill', (_data, index) => {
         return this.colors[index];
       })
       .attr('d', (d: any) => {
-        return arc(d);
+        return this.arc(d);
       });
+  }
 
-    svg
+  addTextToEachSlice() {
+    this.svg
       .append('g')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 30)
       .attr('text-anchor', 'middle')
       .selectAll('text')
-      .data(arcs)
+      .data(this.arcs)
       .join('text')
-      .attr('transform', (d: any) => `translate(${arcLabel.centroid(d)})`)
+      .attr('transform', (d: any) => `translate(${this.arcLabel.centroid(d)})`)
       .selectAll('tspan')
       .data((d, index) => {
         return `${MOCK_DATA[index].name}, Value: ${MOCK_DATA[index].value}`;
