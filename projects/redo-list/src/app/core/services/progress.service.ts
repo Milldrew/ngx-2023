@@ -7,7 +7,7 @@ const MOCK_PROGRESS: Progress = [
   },
 ];
 import { Injectable } from '@angular/core';
-import { RedoList } from './current-list.service';
+import { CurrentListService, RedoList } from './current-list.service';
 import { LocalforageService } from './database/localforage.service';
 
 @Injectable({
@@ -15,7 +15,10 @@ import { LocalforageService } from './database/localforage.service';
 })
 export class ProgressService {
   progress: Progress;
-  constructor(public localforageService: LocalforageService) {}
+  constructor(
+    public localforageService: LocalforageService,
+    public currentListService: CurrentListService
+  ) {}
 
   /**
    * Updates the progress todos to reflect the current state
@@ -107,6 +110,23 @@ export class ProgressService {
   getProgress() {
     return this.localforageService.getItem<Progress>('progress');
   }
+  deleteTodo(submittedTodoName: SubmittedTodo['name']) {
+    const indexToBeDeleted = this.progress.findIndex(
+      (todo) => todo.name === submittedTodoName
+    );
+    if (indexToBeDeleted > -1) {
+      this.progress.splice(indexToBeDeleted, 1);
+      this.localforageService.setItem('progress', this.progress);
+    } else {
+      console.error(
+        `index could not be found for todo named: ${submittedTodoName}.`
+      );
+      alert(
+        `index could not be found for todo named: ${submittedTodoName}. Please manually delete thsis todo out of your browser storage using the developer tools and checking your indexeddb then your local storage.`
+      );
+    }
+    //this.updateProgress();
+  }
 }
 
 /**
@@ -117,7 +137,7 @@ type Progress = SubmittedTodo[];
 /**
  * Contains the state of the todo
  */
-type SubmittedTodo = {
+export type SubmittedTodo = {
   name: string;
   isOnCurrentList: boolean;
   successCount: number;

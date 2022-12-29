@@ -1,1 +1,18 @@
-{{ progressService.progress | json }}
+<ng-container *ngIf="progressService.progress as redos">
+  <ul>
+    <li *ngFor="let todo of redos">
+      Todo Name:
+      <span>{{ todo.name }}</span>
+      Failure Count:
+      <span>{{ todo.failureCount }}</span>
+      Success Count:
+      <span>{{ todo.successCount }}</span>
+      <button
+        class="btn btn-danger"
+        (click)="handleDeleteTodoButton(todo.name)"
+      >
+        Delete
+      </button>
+    </li>
+  </ul>
+</ng-container>
