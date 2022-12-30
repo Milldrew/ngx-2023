@@ -10,8 +10,7 @@ import { CurrentListService } from './core/services/current-list.service';
 import { CreateTodoComponent } from './redo-list/create-todo/create-todo.component';
 import { TabsComponent } from './redo-list/tabs/tabs.component';
 import { ProgressComponent } from './progress/progress.component';
-import { PieChartDirective } from './progress/pie-chart.directive';
-import { Milld3PieChartModule } from 'ngx-milld3';
+import { Milld3PieChartModule } from 'projects/ngx-milld3/src/public-api';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { Milld3PieChartModule } from 'ngx-milld3';
     CreateTodoComponent,
     TabsComponent,
     ProgressComponent,
-    PieChartDirective,
   ],
   imports: [BrowserModule, FormsModule, Milld3PieChartModule],
   providers: [],

@@ -1,3 +1,35 @@
+// debugging
+const MOCK_DATA = [
+  {
+    name: 'A',
+    value: 3,
+  },
+  {
+    name: 'B',
+    value: 5,
+  },
+  {
+    name: 'C',
+    value: 2,
+  },
+  {
+    name: 'D',
+    value: 8,
+  },
+  {
+    name: 'E',
+    value: 8,
+  },
+  {
+    name: 'F',
+    value: 8,
+  },
+  {
+    name: 'G',
+    value: 8,
+  },
+];
+
 import { Component, OnInit } from '@angular/core';
 import {
   ProgressService,
@@ -22,4 +54,5 @@ export class ProgressComponent implements OnInit {
   handleDeleteTodoButton(name: SubmittedTodo['name']) {
     this.progressService.deleteTodo(name);
   }
+  pieChartData = MOCK_DATA;
 }
