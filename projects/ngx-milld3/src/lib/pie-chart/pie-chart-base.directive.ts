@@ -144,5 +144,12 @@ export class PieChartBaseDirective implements OnChanges {
   }
   @Input() units: string;
   @Input() pieChartData: PieChartData;
-  ngOnChanges() {}
+  ngOnChanges() {
+    this.initializeProperties();
+    this.createSVG();
+    this.createPie();
+    this.createSlices();
+    this.addNameTextToEachSlice();
+    this.addValueTextToEachSlice();
+  }
 }

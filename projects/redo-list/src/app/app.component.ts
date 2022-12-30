@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CurrentListService } from './core/services/current-list.service';
 import { LocalforageService } from './core/services/database/localforage.service';
 import { ProgressService } from './core/services/progress.service';
+import { MOCK_DATA } from './progress/progress.component';
 
 @Component({
   selector: 'app-root',
@@ -35,4 +36,5 @@ export class AppComponent {
         );
       });
   }
+  pieChartData = MOCK_DATA;
 }

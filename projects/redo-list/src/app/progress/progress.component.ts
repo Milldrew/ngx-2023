@@ -1,5 +1,4 @@
-// debugging
-const MOCK_DATA = [
+export const MOCK_DATA = [
   {
     name: 'A',
     value: 3,
@@ -55,4 +54,7 @@ export class ProgressComponent implements OnInit {
     this.progressService.deleteTodo(name);
   }
   pieChartData = MOCK_DATA;
+  ngAfterViewChecked() {
+    this.pieChartData = MOCK_DATA;
+  }
 }
