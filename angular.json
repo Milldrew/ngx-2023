@@ -23,6 +23,9 @@
             "polyfills": "projects/redo-list/src/polyfills.ts",
             "tsConfig": "projects/redo-list/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/scss-core/", "projects/scss-scratch"]
+            },
             "assets": [
               "projects/redo-list/src/favicon.ico",
               "projects/redo-list/src/assets"
@@ -123,9 +126,7 @@
               "projects/scratch/src/favicon.ico",
               "projects/scratch/src/assets"
             ],
-            "styles": [
-              "projects/scratch/src/styles.scss"
-            ],
+            "styles": ["projects/scratch/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -191,9 +192,7 @@
               "projects/scratch/src/favicon.ico",
               "projects/scratch/src/assets"
             ],
-            "styles": [
-              "projects/scratch/src/styles.scss"
-            ],
+            "styles": ["projects/scratch/src/styles.scss"],
             "scripts": []
           }
         }
