@@ -1,2 +1,16 @@
 create a podcast app
+  • name saved 
+  • generate image of the user
+  • user can create a stream
+  • other users can join 
+Stage 1.
+  user can create a stream that gets added to a list
+  clicking the stream takes them to an auditorium
+Stage 2.
+  The user can create a stream that has a title 
+Stage 3.
+  Other users can connect to the audio stream
+Stage 4.
+  Users can stream and listen to the stream.
+
 

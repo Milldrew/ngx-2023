@@ -1,6 +1,5 @@
-$foo: #000;
+$light: #9a9a9a;
 
-body,
-div {
-  background-color: $foo;
+body {
+  background-color: $light;
 }
