@@ -13,6 +13,12 @@ Stage 3.
 Stage 4.
   Users can stream and listen to the stream.
 ────────────────
-Design a button that creates the streammc 
+Design a button that creates the stream ✓
+  • Write unit tests for that button | Add it to storybook
+Design a list item
+  • The list of streams should show the streamers portrait only
+  • The title
+  • and expansion panel that shows the description of the list  panel
+
 
 

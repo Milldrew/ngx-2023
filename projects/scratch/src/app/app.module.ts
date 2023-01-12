@@ -1,3 +1,5 @@
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +17,9 @@ import { CreateStreamButtonComponent } from './create-stream-button/create-strea
     BrowserModule,
     MatButtonModule,
     MatIconModule,
+    MatExpansionModule,
     MatTooltipModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

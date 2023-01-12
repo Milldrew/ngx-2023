@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  streamHeader = 'Stream Header for my stream';
   buttonClicked() {
     console.log('button clicked');
   }
