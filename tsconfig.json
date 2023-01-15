@@ -12,6 +12,9 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "millterial": [
+        "dist/millterial"
+      ],
       "ngx-milld3": [
         "dist/ngx-milld3"
       ]
