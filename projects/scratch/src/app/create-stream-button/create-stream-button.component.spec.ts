@@ -3,21 +3,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateStreamButtonComponent } from './create-stream-button.component';
 
 describe('CreateStreamButtonComponent', () => {
-  let component: CreateStreamButtonComponent;
+  let buttonInstance: CreateStreamButtonComponent;
   let fixture: ComponentFixture<CreateStreamButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateStreamButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateStreamButtonComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CreateStreamButtonComponent);
-    component = fixture.componentInstance;
+    buttonInstance = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(buttonInstance).toBeTruthy();
+  });
+  it('Handle Click returns undefined', () => {
+    expect(buttonInstance.handleClick()).toBeUndefined();
   });
 });

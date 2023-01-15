@@ -196,6 +196,9 @@
               "projects/scratch/src/assets"
             ],
             "styles": ["projects/scratch/src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["projects/scss-core/", "projects/scss-scratch/"]
+            },
             "scripts": []
           }
         }
@@ -256,9 +259,7 @@
               "projects/call-out/src/favicon.ico",
               "projects/call-out/src/assets"
             ],
-            "styles": [
-              "projects/call-out/src/styles.scss"
-            ],
+            "styles": ["projects/call-out/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -324,9 +325,7 @@
               "projects/call-out/src/favicon.ico",
               "projects/call-out/src/assets"
             ],
-            "styles": [
-              "projects/call-out/src/styles.scss"
-            ],
+            "styles": ["projects/call-out/src/styles.scss"],
             "scripts": []
           }
         }
