@@ -1,0 +1,22 @@
+.panel-avatar {
+  border-radius: 50%;
+  width: 80%;
+  height: 80%;
+  background-color: black;
+}
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+}
+
+mill-expansion-header {
+  display: flex;
+}
+
+mat-panel-title span {
+  display: inline-flex;
+  align-items: center;
+}

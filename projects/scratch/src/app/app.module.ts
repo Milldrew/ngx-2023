@@ -8,17 +8,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MillterialButtonModule } from '../../../millterial/src/public-api';
+import { MillterialStreamPanelModule } from '../../../millterial/src/public-api';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    MillterialButtonModule,
     BrowserAnimationsModule,
     BrowserModule,
     MatButtonModule,
     MatIconModule,
-    MatExpansionModule,
     MatTooltipModule,
     MatCardModule,
+    MatTooltipModule,
+    MillterialStreamPanelModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

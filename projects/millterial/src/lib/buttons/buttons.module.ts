@@ -10,4 +10,4 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule],
   exports: [CreateStreamButtonComponent],
 })
-export class ButtonsModule {}
+export class MillterialButtonModule {}
