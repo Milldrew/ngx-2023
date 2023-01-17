@@ -1,0 +1,10 @@
+<mat-accordion>
+  <ng-container *ngFor="let stream of streamAccodrionDIO.streamList">
+    <millterial-stream-panel
+      [streamHeader]="stream.header"
+      [description]="stream.description"
+      [avatarUrl]="stream.hostsAvatar"
+    >
+    </millterial-stream-panel>
+  </ng-container>
+</mat-accordion>

@@ -1,12 +1,19 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      <div mat-card-avatar class="example-header-image"></div> </mat-panel-title
+      <div
+        [ngStyle]="parsedAvatarUrl"
+        mat-card-avatar
+        class="example-header-image"
+      ></div> </mat-panel-title
     ><mat-panel-title>
       <span>
         {{ streamHeader }}
       </span>
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <h1>some more text</h1>
+  <p>{{ description }}</p>
+  <mat-action-row>
+    <button mat-button color="primary">Join</button>
+  </mat-action-row>
 </mat-expansion-panel>

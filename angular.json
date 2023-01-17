@@ -335,7 +335,7 @@
       "projectType": "library",
       "root": "projects/millterial",
       "sourceRoot": "projects/millterial/src",
-      "prefix": "lib",
+      "prefix": "millterial",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
